@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-background: #1a0b2e; /* 濃い紫（夜のパーティー感） */
+  --color-foreground: #ffffff;
+  
+  /* 忘年会カラー */
+  --color-beer-yellow: #FFD700;
+  --color-beer-foam: #FFF8DC;
+  --color-party-pink: #FF1493;
+  --color-party-orange: #FF4500;
+  --color-party-purple: #9400D3;
+  --color-party-cyan: #00CED1;
+  
+  --font-sans: var(--font-noto-sans-jp), sans-serif;
+  --font-display: var(--font-potta-one), cursive;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
+  
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+}
+
+:root {
+  --background: #1a0b2e;
+  --foreground: #ffffff;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 20, 147, 0.2) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 20%);
+}
+
+/* Custom Utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+}
+
+.text-shadow-pop {
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 10px currentColor;
 }
