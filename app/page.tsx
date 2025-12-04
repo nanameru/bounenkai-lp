@@ -397,31 +397,42 @@ export default function Home() {
       {/* 注意事項 */}
       <section className="py-12 px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-red-900/30 backdrop-blur-md border-2 border-red-400/50 rounded-2xl p-6 md:p-8">
-            <h2 className="text-2xl font-display font-black text-center mb-6 text-red-300 flex items-center justify-center gap-2">
-              ⚠️ ご参加時のお願い
+          <div className="bg-white text-black rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0_#FF4500]">
+            <h2 className="text-3xl font-display font-black text-center mb-8 flex items-center justify-center gap-3">
+              <span className="text-[#FF4500] animate-bounce">⚠️</span>
+              ご参加時のお願い
+              <span className="text-[#FF4500] animate-bounce">⚠️</span>
             </h2>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="flex items-start gap-3 p-4 bg-white/10 rounded-xl">
-                <span className="text-2xl">🚫</span>
-                <div>
-                  <h3 className="font-bold text-white mb-1">アルコール禁止</h3>
-                  <p className="text-sm text-gray-300">会場内でのアルコールの持ち込み・飲酒はご遠慮ください。</p>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="flex flex-col items-center text-center p-4 rounded-2xl border-2 border-dashed border-gray-300 hover:border-[#FF4500] hover:bg-red-50 transition-all group">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">
+                  🚫
                 </div>
+                <h3 className="font-black text-xl mb-2">アルコール禁止</h3>
+                <p className="text-sm font-bold text-gray-600 leading-relaxed">
+                  会場内での持ち込み・飲酒は<br/>固くお断りします
+                </p>
               </div>
-              <div className="flex items-start gap-3 p-4 bg-white/10 rounded-xl">
-                <span className="text-2xl">♻️</span>
-                <div>
-                  <h3 className="font-bold text-white mb-1">ごみの分別</h3>
-                  <p className="text-sm text-gray-300">会場のルールに従って、ごみの分別にご協力ください。</p>
+
+              <div className="flex flex-col items-center text-center p-4 rounded-2xl border-2 border-dashed border-gray-300 hover:border-[#00CED1] hover:bg-cyan-50 transition-all group">
+                <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">
+                  ♻️
                 </div>
+                <h3 className="font-black text-xl mb-2">ごみの分別</h3>
+                <p className="text-sm font-bold text-gray-600 leading-relaxed">
+                  会場のルールに従って<br/>分別にご協力ください
+                </p>
               </div>
-              <div className="flex items-start gap-3 p-4 bg-white/10 rounded-xl">
-                <span className="text-2xl">👜</span>
-                <div>
-                  <h3 className="font-bold text-white mb-1">忘れ物注意</h3>
-                  <p className="text-sm text-gray-300">お帰りの際は、忘れ物がないかご確認ください。</p>
+
+              <div className="flex flex-col items-center text-center p-4 rounded-2xl border-2 border-dashed border-gray-300 hover:border-[#FFD700] hover:bg-yellow-50 transition-all group">
+                <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform">
+                  👜
                 </div>
+                <h3 className="font-black text-xl mb-2">忘れ物注意</h3>
+                <p className="text-sm font-bold text-gray-600 leading-relaxed">
+                  お帰りの際は<br/>身の回りをご確認ください
+                </p>
               </div>
             </div>
           </div>
