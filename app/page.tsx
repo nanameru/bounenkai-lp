@@ -194,7 +194,7 @@ export default function Home() {
             
             <div className="text-center mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-black mb-4 text-[var(--color-party-purple)]">
-                🍻 今年のAI、みんなで振り返ろう！
+                🎊 今年のAI、みんなで振り返ろう！
               </h2>
               <div className="w-20 h-2 bg-[var(--color-party-cyan)] mx-auto rounded-full" />
             </div>
@@ -247,8 +247,8 @@ export default function Home() {
               color="bg-[var(--color-party-cyan)]"
             />
             <Card 
-              Icon={Beer}
-              title="豪華ゲストと乾杯"
+              Icon={Users}
+              title="豪華ゲストと交流"
               description="有名インフルエンサーやAIスタートアップも参加予定！この日だけの特別な繋がりが生まれるかも！"
               color="bg-[var(--color-party-orange)]"
             />
