@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
     images: [
       {
-        url: "/1.png",
+        url: "/ogp.png",
         width: 1200,
         height: 630,
         alt: "Japan AI 大忘年会 2025",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Japan AI 大忘年会 2025",
     description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
-    images: ["/1.png"],
+    images: ["/ogp.png"],
   },
 };
 
