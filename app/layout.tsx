@@ -16,7 +16,7 @@ const pottaOne = Potta_One({
 });
 
 export const metadata: Metadata = {
-  title: "Japan AI 大忘年会 2025 | 飲んで語って締めくくろう！",
+  title: "Japan AI 大忘年会 2025",
   description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
 };
 

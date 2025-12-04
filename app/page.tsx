@@ -394,6 +394,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 注意事項 */}
+      <section className="py-12 px-4 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-red-900/30 backdrop-blur-md border-2 border-red-400/50 rounded-2xl p-6 md:p-8">
+            <h2 className="text-2xl font-display font-black text-center mb-6 text-red-300 flex items-center justify-center gap-2">
+              ⚠️ ご参加時のお願い
+            </h2>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="flex items-start gap-3 p-4 bg-white/10 rounded-xl">
+                <span className="text-2xl">🚫</span>
+                <div>
+                  <h3 className="font-bold text-white mb-1">アルコール禁止</h3>
+                  <p className="text-sm text-gray-300">会場内でのアルコールの持ち込み・飲酒はご遠慮ください。</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 bg-white/10 rounded-xl">
+                <span className="text-2xl">♻️</span>
+                <div>
+                  <h3 className="font-bold text-white mb-1">ごみの分別</h3>
+                  <p className="text-sm text-gray-300">会場のルールに従って、ごみの分別にご協力ください。</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 bg-white/10 rounded-xl">
+                <span className="text-2xl">👜</span>
+                <div>
+                  <h3 className="font-bold text-white mb-1">忘れ物注意</h3>
+                  <p className="text-sm text-gray-300">お帰りの際は、忘れ物がないかご確認ください。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 px-4 text-center relative z-10 bg-gradient-to-b from-transparent to-black/50">
         <div className="max-w-3xl mx-auto">
