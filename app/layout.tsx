@@ -18,7 +18,7 @@ const pottaOne = Potta_One({
 export const metadata: Metadata = {
   title: "Japan AI 大忘年会 2025",
   description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
-  metadataBase: new URL("https://bounenkai-lp.vercel.app"), // 本番URLに変更してください
+  metadataBase: new URL("https://ai-bounenkai.com"),
   openGraph: {
     title: "Japan AI 大忘年会 2025",
     description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
