@@ -16,22 +16,22 @@ const pottaOne = Potta_One({
 });
 
 export const metadata: Metadata = {
-  title: "Japan AI 大忘年会 2025",
-  description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
+  title: "Japan AI 大忘年会 2025 | AIを語って締めくくろう",
+  description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、AIを語って締めくくろう！参加費無料。",
   metadataBase: new URL("https://ai-bounenkai.com"),
   icons: {
     icon: "/icon.png",
     apple: "/icon.png",
   },
   openGraph: {
-    title: "Japan AI 大忘年会 2025",
-    description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
+    title: "Japan AI 大忘年会 2025 | AIを語って締めくくろう",
+    description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、AIを語って締めくくろう！参加費無料。",
     images: [
       {
         url: "/1.png",
         width: 1200,
         height: 630,
-        alt: "Japan AI 大忘年会 2025",
+        alt: "Japan AI 大忘年会 2025 | AIを語って締めくくろう",
       },
     ],
     type: "website",
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Japan AI 大忘年会 2025",
-    description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、みんなで労い合う大忘年会！参加費無料。",
+    title: "Japan AI 大忘年会 2025 | AIを語って締めくくろう",
+    description: "2025年12月13日(土)開催！今年のAI界隈を振り返り、AIを語って締めくくろう！参加費無料。",
     images: ["/1.png"],
   },
 };
