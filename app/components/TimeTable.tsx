@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Clock, User, Mic, Coffee, Users, Star } from "lucide-react";
+import Image from "next/image";
 
 type ScheduleItem = {
   time: string;
@@ -9,6 +10,7 @@ type ScheduleItem = {
   speaker?: string;
   role?: "speaker" | "sponsor" | "management" | "break";
   description?: string;
+  image?: string;
 };
 
 const scheduleData1: ScheduleItem[] = [
@@ -60,9 +62,11 @@ const scheduleData1: ScheduleItem[] = [
 const scheduleData2: ScheduleItem[] = [
   {
     time: "14:00 - 15:00",
-    title: "Google Cloud",
-    speaker: "ハレンさん",
+    title: "Google AIプロダクト一挙解説！",
+    speaker: "バンダリ・ハレン",
     role: "speaker",
+    description: "Google Cloud シニア デベロッパー リレーションズ エンジニア",
+    image: "/10.png",
   },
   {
     time: "15:00 - 15:15",
@@ -162,17 +166,33 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
           </h3>
           
           {item.speaker && (
-            <div className="flex items-center gap-2 mt-1">
-              <div className="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center border border-gray-500">
-                <User size={14} className="text-gray-300" />
+            <div className="flex items-center gap-3 mt-2">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-500 overflow-hidden relative">
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.speaker}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <User size={20} className="text-gray-300" />
+                )}
               </div>
-              <span className="text-sm font-bold text-gray-300">
-                {item.speaker}
-              </span>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-gray-200 leading-tight">
+                  {item.speaker}
+                </span>
+                {item.description && !item.title.includes(item.description) && (
+                   <span className="text-xs text-gray-400 leading-tight mt-0.5">
+                     {item.description}
+                   </span>
+                )}
+              </div>
             </div>
           )}
           
-          {item.description && (
+          {item.description && !item.speaker && (
             <p className="text-xs text-gray-400 mt-2 border-t border-white/10 pt-2">
               {item.description}
             </p>
