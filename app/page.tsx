@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, MapPin, Clock, Beer, PartyPopper, Music, Gift, ChevronRight, ExternalLink, Users, Mic, Lock, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import TimeTable from "./components/TimeTable";
 
 // 紙吹雪コンポーネント
 const Confetti = () => {
@@ -256,53 +257,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Special LT Teaser Section */}
-      <section className="py-16 px-4 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <div className="relative bg-black/60 border-4 border-white/20 rounded-3xl p-8 md:p-12 text-center overflow-hidden group hover:border-[var(--color-party-purple)] transition-colors duration-500">
-            <div className="absolute top-0 left-0 w-full h-full bg-[url('/grid.svg')] opacity-10"></div>
-            
-            {/* Badge */}
-            <div className="absolute top-4 right-4 md:top-8 md:right-8 rotate-12">
-              <div className="bg-[#FFD700] text-black font-black px-4 py-1 rounded-full border-2 border-white shadow-lg animate-pulse">
-                COMING SOON
-              </div>
-            </div>
-
-            <h2 className="text-3xl md:text-4xl font-display font-black mb-8 flex flex-col md:flex-row items-center justify-center gap-3 text-white">
-              <Mic className="w-8 h-8 md:w-10 md:h-10 text-[var(--color-party-pink)]" />
-              <span>スペシャルLT & ゲスト</span>
-              <span className="text-[var(--color-party-cyan)]">順次解禁！</span>
-            </h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="flex flex-col items-center gap-3">
-                  <div className="w-24 h-24 rounded-full bg-white/10 border-2 border-dashed border-white/30 flex items-center justify-center relative group-hover:border-[var(--color-party-purple)] transition-colors">
-                    <Users className="w-10 h-10 text-white/20" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-3xl font-black text-white/80">?</span>
-                    </div>
-                  </div>
-                  <div className="h-4 w-20 bg-white/10 rounded-full"></div>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-lg text-gray-300 font-bold">
-              あの有名インフルエンサーや、話題のスタートアップが登場...！？
-              <br />
-              続報を待て！！
-            </p>
-
-            <div className="mt-8 flex justify-center gap-4">
-              <Link href="https://x.com/sora19ai" target="_blank" className="inline-flex items-center gap-2 bg-[#1DA1F2] hover:bg-[#1a91da] text-white px-4 py-2 rounded-full font-bold transition-all">
-                 𝕏 で最新情報をチェック
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Time Schedule */}
+      <TimeTable />
 
       {/* Target Audience */}
       <section className="py-20 px-4 relative z-10">
@@ -482,7 +438,7 @@ export default function Home() {
         </div>
         <p>© 2025 Japan AI 大忘年会実行委員会</p>
       </footer>
-      </main>
+    </main>
   );
 }
 
