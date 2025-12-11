@@ -125,9 +125,8 @@ const scheduleData2: ScheduleItem[] = [
   {
     time: "16:15 - 16:18",
     title: "",
-    speaker: "Cursor 中村",
+    speaker: "AIブレインパートナーズ株式会社",
     role: "sponsor",
-    description: "AIブレインパートナーズ株式会社",
     image: "/WdIzT_w3_400x400.jpg",
   },
   {
