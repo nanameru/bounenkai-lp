@@ -166,8 +166,8 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
           </h3>
           
           {item.speaker && (
-            <div className="flex items-center gap-3 mt-2">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-500 overflow-hidden relative">
+            <div className="flex items-center gap-4 mt-3">
+              <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-500 overflow-hidden relative">
                 {item.image ? (
                   <Image
                     src={item.image}
@@ -176,15 +176,15 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
                     className="object-cover"
                   />
                 ) : (
-                  <User size={20} className="text-gray-300" />
+                  <User size={24} className="text-gray-300" />
                 )}
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-gray-200 leading-tight">
+                <span className="text-base md:text-lg font-bold text-gray-200 leading-tight">
                   {item.speaker}
                 </span>
                 {item.description && !item.title.includes(item.description) && (
-                   <span className="text-xs text-gray-400 leading-tight mt-0.5">
+                   <span className="text-sm text-gray-400 leading-tight mt-1">
                      {item.description}
                    </span>
                 )}
