@@ -31,9 +31,11 @@ const scheduleData1: ScheduleItem[] = [
   },
   {
     time: "11:00 - 12:00",
-    title: "G1登壇・ヒューマノイドについて",
-    speaker: "大曽根さん",
+    title: "ヒューマノイドロボット フィジカルAI 最新動向",
+    speaker: "大曽根 宏幸",
     role: "speaker",
+    description: "EmplifAI 代表取締役 / Unitree G1レンタルサービス / ヒューマノイド研究家 / LLMエンジニア",
+    image: "/osone.png",
   },
   {
     time: "12:00 - 12:15",
