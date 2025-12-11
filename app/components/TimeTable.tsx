@@ -41,7 +41,7 @@ const scheduleData1: ScheduleItem[] = [
   {
     time: "12:00 - 12:15",
     title: "2026年の動画編集AIに起きる変化",
-    speaker: "ひかるくん",
+    speaker: "ひかる｜動画編集AI",
     role: "speaker",
     description: "動画編集AIエージェント VIDEOPOCKET開発者",
     image: "/NM7ifjyK_400x400.jpg",
