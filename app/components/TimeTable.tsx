@@ -92,7 +92,7 @@ const scheduleData2: ScheduleItem[] = [
     speaker: "Omluc 代表取締役 岸田崇史",
     role: "speaker",
     description: "法人向け生成AI導入支援 / Dify本 著者 / Dify Studio ファウンダー",
-    image: "/kishida.png",
+    image: "/kishida_session.png",
   },
   {
     time: "15:15 - 15:30",
