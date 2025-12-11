@@ -109,9 +109,11 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "16:00 - 16:15",
-    title: "Cursorアンバサダーが語るCursorの進化",
+    title: "Cursorアンバサダーが語るCursorの進化と今後の未来",
     speaker: "きのぴーさん",
     role: "speaker",
+    description: "「CURSOR完全ガイド」著者 / CURSOR AMBASSADOR / DEVIN EXPERT / WINDSURF AMBASSADOR",
+    image: "/tOenj1eZ_400x400.jpg",
   },
   {
     time: "16:15 - 16:18",
