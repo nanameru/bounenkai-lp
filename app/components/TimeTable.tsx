@@ -101,9 +101,11 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "15:30 - 15:45",
-    title: "Claude code",
-    speaker: "noguさん",
+    title: "まだ間に合う！Claude Code元年を振り返る",
+    speaker: "個人開発者・ソロプレナー NOGU",
     role: "speaker",
+    description: "AI愛好家 / 生成AI推進者 / AIエージェント開発者",
+    image: "/QgpCjXcC_400x400.jpg",
   },
   {
     time: "16:00 - 16:15",
