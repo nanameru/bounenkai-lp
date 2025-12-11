@@ -107,9 +107,10 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "15:15 - 15:30",
-    title: "",
-    speaker: "駒谷様",
-    role: "sponsor",
+    title: "株式会社Exa Enterprise AI",
+    speaker: "スポンサー 駒谷様",
+    role: "speaker",
+    image: "/Japan AI 大忘年会 2025 登壇者告知 ハレンさん (4).png",
   },
   {
     time: "15:30 - 15:45",
@@ -240,8 +241,7 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
                         alt={`Speaker ${i + 1}`}
                         fill
                         className="object-cover"
-                        sizes="64px"
-                        quality={100}
+                        unoptimized
                       />
                     </div>
                   ))}
@@ -254,8 +254,7 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
                       alt={item.speaker || "Speaker"}
                       fill
                       className="object-cover"
-                      sizes="64px"
-                      quality={100}
+                      unoptimized
                     />
                   ) : (
                     <User size={24} className="text-gray-300" />
