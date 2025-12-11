@@ -240,7 +240,8 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
                         alt={`Speaker ${i + 1}`}
                         fill
                         className="object-cover"
-                        unoptimized
+                        sizes="64px"
+                        quality={100}
                       />
                     </div>
                   ))}
@@ -253,7 +254,8 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
                       alt={item.speaker || "Speaker"}
                       fill
                       className="object-cover"
-                      unoptimized
+                      sizes="64px"
+                      quality={100}
                     />
                   ) : (
                     <User size={24} className="text-gray-300" />
