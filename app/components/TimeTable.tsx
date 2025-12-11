@@ -11,14 +11,23 @@ type ScheduleItem = {
   role?: "speaker" | "sponsor" | "management" | "break";
   description?: string;
   image?: string;
+  images?: string[];
 };
 
 const scheduleData1: ScheduleItem[] = [
   {
-    time: "10:00 - 11:00",
+    time: "10:00 - 10:30",
     title: "開会式",
-    speaker: "運営スタッフ",
+    speaker: "運営チーム",
     role: "management",
+    images: ["/Wz8kSWMa_400x400.jpg", "/ZC2pFIIh_400x400.jpg"],
+  },
+  {
+    time: "10:30 - 11:00",
+    title: "AIの今と未来セッション",
+    speaker: "スペシャルゲスト",
+    role: "speaker",
+    images: ["/Wz8kSWMa_400x400.jpg", "/ZC2pFIIh_400x400.jpg", "/ZCYlwKLv_400x400.jpg"],
   },
   {
     time: "11:00 - 12:00",
@@ -165,30 +174,48 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
             {item.title}
           </h3>
           
-          {item.speaker && (
+          {(item.speaker || item.image || item.images) && (
             <div className="flex items-center gap-4 mt-3">
-              <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-500 overflow-hidden relative">
-                {item.image ? (
-                  <Image
-                    src={item.image}
-                    alt={item.speaker}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <User size={24} className="text-gray-300" />
-                )}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base md:text-lg font-bold text-gray-200 leading-tight">
-                  {item.speaker}
-                </span>
-                {item.description && !item.title.includes(item.description) && (
-                   <span className="text-sm text-gray-400 leading-tight mt-1">
-                     {item.description}
-                   </span>
-                )}
-              </div>
+              {item.images ? (
+                <div className="flex -space-x-3 overflow-hidden pl-1">
+                  {item.images.map((img, i) => (
+                    <div key={i} className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-gray-500 overflow-hidden relative shadow-lg bg-gray-700">
+                      <Image
+                        src={img}
+                        alt={`Speaker ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-500 overflow-hidden relative">
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.speaker || "Speaker"}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <User size={24} className="text-gray-300" />
+                  )}
+                </div>
+              )}
+              
+              {item.speaker && (
+                <div className="flex flex-col">
+                  <span className="text-base md:text-lg font-bold text-gray-200 leading-tight">
+                    {item.speaker}
+                  </span>
+                  {item.description && !item.title.includes(item.description) && (
+                     <span className="text-sm text-gray-400 leading-tight mt-1">
+                       {item.description}
+                     </span>
+                  )}
+                </div>
+              )}
             </div>
           )}
           
