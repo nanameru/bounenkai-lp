@@ -293,10 +293,16 @@ export default function TimeTable() {
           <p className="text-xl font-bold text-[var(--color-party-cyan)]">
             当日のタイムテーブル
           </p>
-          <div className="mt-6 inline-block bg-white/10 px-6 py-2 rounded-full border border-white/20 backdrop-blur-sm shadow-lg">
-            <p className="text-lg md:text-xl text-white font-bold flex items-center gap-2">
-              <span className="text-2xl">🎉</span> 
-              <span>9:30 開場・受付開始！</span>
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <div className="inline-block bg-white/10 px-6 py-2 rounded-full border border-white/20 backdrop-blur-sm shadow-lg">
+              <p className="text-lg md:text-xl text-white font-bold flex items-center gap-2">
+                <span className="text-2xl">🎉</span> 
+                <span>9:30 開場・受付開始！</span>
+              </p>
+            </div>
+            <p className="text-white/90 font-bold text-base md:text-lg bg-black/30 px-6 py-2 rounded-lg border border-white/10 flex items-center gap-2">
+               <span>🍱</span>
+               <span>会場内は飲食OK！お昼ご飯は各自ご持参ください</span>
             </p>
           </div>
         </div>
