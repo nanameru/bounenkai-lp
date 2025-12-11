@@ -26,7 +26,6 @@ const scheduleData1: ScheduleItem[] = [
   {
     time: "10:30 - 11:00",
     title: "AIの今と未来セッション",
-    speaker: "スペシャルゲスト",
     role: "speaker",
     images: ["/Wz8kSWMa_400x400.jpg", "/ZC2pFIIh_400x400.jpg", "/ZCYlwKLv_400x400.jpg"],
   },
