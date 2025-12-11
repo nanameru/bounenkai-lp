@@ -48,9 +48,10 @@ const scheduleData1: ScheduleItem[] = [
   },
   {
     time: "12:15 - 12:30",
-    title: "AI×Youtube",
-    speaker: "てるさん",
+    title: "Googleをぶっ倒す最後の時は今かもしれない",
+    speaker: "てる@プロンプトマフィア",
     role: "speaker",
+    image: "/7y8K_1AK_400x400.jpg",
   },
   {
     time: "12:30 - 13:00",
