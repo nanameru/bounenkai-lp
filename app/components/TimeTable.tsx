@@ -107,9 +107,10 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "15:15 - 15:30",
-    title: "株式会社Exa Enterprise AI",
-    speaker: "スポンサー 駒谷様",
+    title: "年の瀬に振り返るAI新規事業",
+    speaker: "Exa Enterprise AI 駒谷 徹",
     role: "speaker",
+    description: "社長室室長 / 生成AI事業開発部 部長",
     image: "/Japan AI 大忘年会 2025 登壇者告知 ハレンさん (4).png",
   },
   {
