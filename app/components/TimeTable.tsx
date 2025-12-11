@@ -125,7 +125,7 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "16:20 - 16:27",
-    title: "Aqua Voice",
+    title: "",
     speaker: "AquaVoice",
     role: "sponsor",
     image: "/aquavoice.jpg",
@@ -188,9 +188,11 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
             {item.role && <RoleBadge role={item.role} />}
           </div>
           
-          <h3 className={`text-lg font-bold leading-tight group-hover:text-[var(--color-party-cyan)] transition-colors ${item.titleClassName || ""}`}>
-            {item.title}
-          </h3>
+          {item.title && (
+            <h3 className={`text-lg font-bold leading-tight group-hover:text-[var(--color-party-cyan)] transition-colors ${item.titleClassName || ""}`}>
+              {item.title}
+            </h3>
+          )}
           
           {(item.speaker || item.image || item.images) && (
             <div className="flex items-center gap-4 mt-3">
@@ -224,7 +226,7 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
               
               {item.speaker && (
                 <div className="flex flex-col">
-                  <span className="text-base md:text-lg font-bold text-gray-200 leading-tight">
+                  <span className={`text-base md:text-lg font-bold text-gray-200 leading-tight ${item.speaker === "AquaVoice" ? "text-2xl md:text-3xl" : ""}`}>
                     {item.speaker}
                   </span>
                   {item.description && !item.title.includes(item.description) && (
