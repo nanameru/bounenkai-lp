@@ -117,8 +117,8 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "16:15 - 16:18",
-    title: "Cursor",
-    speaker: "中村",
+    title: "",
+    speaker: "Cursor 中村",
     role: "sponsor",
   },
   {
