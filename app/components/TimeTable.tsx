@@ -54,9 +54,10 @@ const scheduleData1: ScheduleItem[] = [
   },
   {
     time: "13:00 - 13:15",
-    title: "内容交渉中",
-    speaker: "KEITOさん",
+    title: "SPECIAL SECRET SESSION",
+    speaker: "SECRET GUEST",
     role: "speaker",
+    description: "現在、水面下で交渉中...！あっと驚くゲストが登場するかも？当日をお楽しみに！",
   },
   {
     time: "13:15 - 13:30",
