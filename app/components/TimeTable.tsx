@@ -47,6 +47,12 @@ const scheduleData1: ScheduleItem[] = [
     image: "/NM7ifjyK_400x400.jpg",
   },
   {
+    time: "12:15 - 12:30",
+    title: "AI×Youtube",
+    speaker: "てるさん",
+    role: "speaker",
+  },
+  {
     time: "12:30 - 13:00",
     title: "昼休憩＆ミニ懇親会",
     speaker: "全員",
@@ -73,7 +79,7 @@ const scheduleData1: ScheduleItem[] = [
     speaker: "Explaza CPO みやっち",
     role: "speaker",
     description: "株式会社エクスプラザ CPO 生成AIエバンジェリスト",
-    image: "/miyacchi.jpg",
+    image: "/miyacchi_new.png",
   },
 ];
 
@@ -129,6 +135,28 @@ const scheduleData2: ScheduleItem[] = [
     speaker: "AquaVoice",
     role: "sponsor",
     image: "/aquavoice.jpg",
+  },
+  {
+    time: "16:30 - 16:45",
+    title: "",
+    speaker: "シュンスケさん",
+    role: "speaker",
+  },
+  {
+    time: "16:45 - 17:30",
+    title: "",
+    speaker: "taiyo",
+    role: "speaker",
+  },
+  {
+    time: "17:30 - 17:45",
+    title: "懇親会？",
+    role: "management",
+  },
+  {
+    time: "17:45 - 18:00",
+    title: "閉会式？写真撮影",
+    role: "management",
   },
 ];
 
