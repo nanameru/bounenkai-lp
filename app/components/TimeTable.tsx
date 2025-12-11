@@ -73,7 +73,7 @@ const scheduleData1: ScheduleItem[] = [
     speaker: "Explaza CPO みやっち",
     role: "speaker",
     description: "株式会社エクスプラザ CPO 生成AIエバンジェリスト",
-    image: "/miyacchi.png",
+    image: "/miyacchi.jpg",
   },
 ];
 
