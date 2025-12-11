@@ -98,7 +98,6 @@ const scheduleData2: ScheduleItem[] = [
     speaker: "Omluc 代表取締役 岸田崇史",
     role: "speaker",
     description: "法人向け生成AI導入支援 / Dify本 著者 / Dify Studio ファウンダー",
-    image: "/kishida_session.png",
   },
   {
     time: "15:15 - 15:30",
@@ -138,15 +137,17 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "16:30 - 16:45",
-    title: "",
-    speaker: "シュンスケさん",
+    title: "SECRET GUEST",
     role: "speaker",
+    titleClassName: "text-3xl md:text-4xl text-[var(--color-party-pink)] py-2",
   },
   {
     time: "16:45 - 17:30",
-    title: "",
-    speaker: "taiyo",
+    title: "アプリ爆速ローンチハンズオン",
+    speaker: "Genspark",
     role: "speaker",
+    description: "オールインワンAIワークスペース\n忙しいだけの仕事を自動化しよう",
+    image: "/genspark.jpeg",
   },
   {
     time: "17:30 - 17:45",
