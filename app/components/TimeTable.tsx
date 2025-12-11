@@ -112,7 +112,7 @@ const scheduleData2: ScheduleItem[] = [
     speaker: "個人開発者・ソロプレナー NOGU",
     role: "speaker",
     description: "AI愛好家 / 生成AI推進者 / AIエージェント開発者",
-    image: "/QgpCjXcC_400x400.jpg",
+    image: "/miyacchi.jpg",
   },
   {
     time: "16:00 - 16:15",
