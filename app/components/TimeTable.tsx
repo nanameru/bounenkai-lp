@@ -127,6 +127,7 @@ const scheduleData2: ScheduleItem[] = [
     title: "Aqua Voice",
     speaker: "AquaVoice",
     role: "sponsor",
+    image: "/aquavoice.jpg",
   },
 ];
 
