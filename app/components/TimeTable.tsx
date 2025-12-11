@@ -12,6 +12,7 @@ type ScheduleItem = {
   description?: string;
   image?: string;
   images?: string[];
+  titleClassName?: string;
 };
 
 const scheduleData1: ScheduleItem[] = [
