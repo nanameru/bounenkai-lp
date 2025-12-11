@@ -54,10 +54,9 @@ const scheduleData1: ScheduleItem[] = [
   },
   {
     time: "13:00 - 13:15",
-    title: "SPECIAL SECRET SESSION",
-    speaker: "SECRET GUEST",
+    title: "SECRET GUEST",
     role: "speaker",
-    description: "現在、水面下で交渉中...！あっと驚くゲストが登場するかも？当日をお楽しみに！",
+    titleClassName: "text-3xl md:text-4xl text-[var(--color-party-pink)] py-2",
   },
   {
     time: "13:15 - 13:30",
@@ -88,9 +87,11 @@ const scheduleData2: ScheduleItem[] = [
   },
   {
     time: "15:00 - 15:15",
-    title: "Dify",
-    speaker: "岸田さん",
+    title: "企業のAI活用をドライブするFDEについて",
+    speaker: "Omluc 代表取締役 岸田崇史",
     role: "speaker",
+    description: "法人向け生成AI導入支援 / Dify本 著者 / Dify Studio ファウンダー",
+    image: "/kishida.png",
   },
   {
     time: "15:15 - 15:30",
@@ -179,7 +180,7 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
             {item.role && <RoleBadge role={item.role} />}
           </div>
           
-          <h3 className="text-lg font-bold leading-tight group-hover:text-[var(--color-party-cyan)] transition-colors">
+          <h3 className={`text-lg font-bold leading-tight group-hover:text-[var(--color-party-cyan)] transition-colors ${item.titleClassName || ""}`}>
             {item.title}
           </h3>
           
