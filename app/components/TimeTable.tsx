@@ -61,9 +61,11 @@ const scheduleData1: ScheduleItem[] = [
   },
   {
     time: "13:15 - 13:30",
-    title: "セッション3",
-    speaker: "翼さん",
-    role: "sponsor",
+    title: "「技術」を「商売」に変えるための答え合わせ",
+    speaker: "AppTalentHub 宮崎 翼",
+    role: "speaker",
+    description: "～地方研修と人材紹介の現場で見えた、稼げるエンジニアの共通点～",
+    image: "/9mV-gc-s_400x400.jpg",
   },
   {
     time: "13:30 - 13:45",
