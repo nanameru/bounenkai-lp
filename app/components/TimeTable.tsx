@@ -81,6 +81,11 @@ const scheduleData1: ScheduleItem[] = [
     description: "株式会社エクスプラザ CPO 生成AIエバンジェリスト",
     image: "/miyacchi_new.png",
   },
+  {
+    time: "13:45 - 14:00",
+    title: "休憩",
+    role: "break",
+  },
 ];
 
 const scheduleData2: ScheduleItem[] = [
