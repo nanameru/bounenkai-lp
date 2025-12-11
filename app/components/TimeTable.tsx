@@ -69,9 +69,11 @@ const scheduleData1: ScheduleItem[] = [
   },
   {
     time: "13:30 - 13:45",
-    title: "AIPM",
-    speaker: "みやっちさん",
+    title: "生成AIから保守AIへ 2026年、生成AIサービスの新しい潮流",
+    speaker: "Explaza CPO みやっち",
     role: "speaker",
+    description: "株式会社エクスプラザ CPO 生成AIエバンジェリスト",
+    image: "/miyacchi.png",
   },
 ];
 
