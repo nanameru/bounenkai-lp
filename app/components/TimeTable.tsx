@@ -290,15 +290,20 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
 };
 
 export default function TimeTable() {
-  const downloadShareImage = async () => {
-    // Xに載せたときに見栄えしやすい「縦長・2カラム」画像を生成します。
+  const downloadShareImage = async (opts: { part: 1 | 2 }) => {
+    // Xに載せやすい「16:9 横長」画像を、前半/後半で分けて生成します。
     const WIDTH = 1600;
-    const HEIGHT = 2000;
-    const SCALE = Math.min(2, Math.max(1, Math.floor(window.devicePixelRatio || 1)));
+    const HEIGHT = 900;
+    const SCALE = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+
+    const part =
+      opts.part === 1
+        ? { label: "10:00 - 14:00", accent: "#FF4500", items: scheduleData1, filename: "japan-ai-bounenkai-2025-10-14.png" }
+        : { label: "14:00 - 18:00", accent: "#9400D3", items: scheduleData2, filename: "japan-ai-bounenkai-2025-14-18.png" };
 
     const canvas = document.createElement("canvas");
-    canvas.width = WIDTH * SCALE;
-    canvas.height = HEIGHT * SCALE;
+    canvas.width = Math.round(WIDTH * SCALE);
+    canvas.height = Math.round(HEIGHT * SCALE);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.scale(SCALE, SCALE);
@@ -314,8 +319,17 @@ export default function TimeTable() {
       text: "#FFFFFF",
       muted: "rgba(255,255,255,0.72)",
       card: "rgba(255,255,255,0.06)",
-      cardBorder: "rgba(255,255,255,0.12)",
+      cardBorder: "rgba(255,255,255,0.14)",
     } as const;
+
+    const loadImage = (src: string) =>
+      new Promise<HTMLImageElement | null>((resolve) => {
+        const img = new window.Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
 
     const roundRect = (x: number, y: number, w: number, h: number, r: number) => {
       const rr = Math.min(r, w / 2, h / 2);
@@ -345,10 +359,10 @@ export default function TimeTable() {
     };
 
     const drawPill = (x: number, y: number, text: string, bg: string, fg: string) => {
-      ctx.font = '700 20px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-      const padX = 14;
+      ctx.font = '800 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+      const padX = 12;
       const w = Math.ceil(ctx.measureText(text).width) + padX * 2;
-      const h = 34;
+      const h = 30;
       ctx.fillStyle = bg;
       roundRect(x, y, w, h, 999);
       ctx.fill();
@@ -366,151 +380,153 @@ export default function TimeTable() {
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
     // Soft glow
-    const glow = ctx.createRadialGradient(WIDTH * 0.2, HEIGHT * 0.15, 0, WIDTH * 0.2, HEIGHT * 0.15, 520);
+    const glow = ctx.createRadialGradient(WIDTH * 0.18, HEIGHT * 0.18, 0, WIDTH * 0.18, HEIGHT * 0.18, 420);
     glow.addColorStop(0, "rgba(0,206,209,0.22)");
     glow.addColorStop(1, "rgba(0,206,209,0)");
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-    const glow2 = ctx.createRadialGradient(WIDTH * 0.85, HEIGHT * 0.1, 0, WIDTH * 0.85, HEIGHT * 0.1, 520);
+    const glow2 = ctx.createRadialGradient(WIDTH * 0.86, HEIGHT * 0.16, 0, WIDTH * 0.86, HEIGHT * 0.16, 420);
     glow2.addColorStop(0, "rgba(255,20,147,0.18)");
     glow2.addColorStop(1, "rgba(255,20,147,0)");
     ctx.fillStyle = glow2;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-    const P = 80;
-    let y = 72;
+    const P = 64;
 
-    // Header
-    ctx.fillStyle = COLORS.yellow;
-    ctx.font = '900 22px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    // Header + icon
+    const icon = await loadImage("/icon.png");
+    if (icon) {
+      const iconSize = 64;
+      ctx.save();
+      roundRect(P, 40, iconSize, iconSize, 16);
+      ctx.clip();
+      ctx.drawImage(icon, P, 40, iconSize, iconSize);
+      ctx.restore();
+    }
+
+    const titleX = icon ? P + 64 + 18 : P;
+    const titleTop = 54;
     ctx.textBaseline = "alphabetic";
-    ctx.fillText("JAPAN AI", P, y);
+
+    ctx.fillStyle = COLORS.yellow;
+    ctx.font = '900 20px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("JAPAN AI", titleX, titleTop);
 
     ctx.fillStyle = COLORS.text;
-    ctx.font = '900 64px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-    ctx.fillText("大忘年会 2025", P, y + 74);
+    ctx.font = '900 48px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("大忘年会 2025", titleX, titleTop + 54);
 
     ctx.fillStyle = COLORS.muted;
-    ctx.font = '700 24px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-    ctx.fillText("2025/12/13（土） 10:00 - 18:00  |  川崎タワー 26F", P, y + 112);
+    ctx.font = '700 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("2025/12/13（土） 10:00 - 18:00  |  川崎タワー 26F", titleX, titleTop + 82);
 
-    // Accent chips
-    const chipsY = y + 138;
-    const w1 = drawPill(P, chipsY, "タイムテーブル", COLORS.cyan, "#000000");
-    drawPill(P + w1 + 12, chipsY, "保存してXでシェア", COLORS.pink, COLORS.text);
+    // Part label
+    const chipsY = 128;
+    const w1 = drawPill(P, chipsY, `TIME: ${part.label}`, part.accent, COLORS.text);
+    drawPill(P + w1 + 10, chipsY, "Xに投稿しやすい16:9", COLORS.cyan, "#000000");
 
     // Divider
-    y = chipsY + 68;
-    ctx.strokeStyle = "rgba(255,255,255,0.14)";
+    const dividerY = 176;
+    ctx.strokeStyle = "rgba(255,255,255,0.16)";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(P, y);
-    ctx.lineTo(WIDTH - P, y);
+    ctx.moveTo(P, dividerY);
+    ctx.lineTo(WIDTH - P, dividerY);
     ctx.stroke();
-    y += 36;
 
-    // Columns
-    const gap = 44;
-    const colW = Math.floor((WIDTH - P * 2 - gap) / 2);
-    const leftX = P;
-    const rightX = P + colW + gap;
-    const topY = y;
+    // Content grid (2 columns if needed)
+    const items = part.items;
+    const cols = items.length > 6 ? 2 : 1;
+    const gapX = 24;
+    const gapY = 14;
+    const contentTop = dividerY + 28;
+    const contentBottom = HEIGHT - 96;
+    const contentH = contentBottom - contentTop;
+    const contentW = WIDTH - P * 2;
+    const colW = cols === 1 ? contentW : Math.floor((contentW - gapX) / 2);
+    const rowsPerCol = Math.ceil(items.length / cols);
+    const cardH = Math.max(86, Math.floor((contentH - gapY * (rowsPerCol - 1)) / rowsPerCol));
 
-    const drawColumn = (x: number, title: string, accent: string, items: ScheduleItem[]) => {
-      let cy = topY;
-      // Column title
-      ctx.fillStyle = COLORS.text;
-      ctx.font = '900 36px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-      ctx.fillText(title, x, cy + 34);
-
-      ctx.fillStyle = accent;
-      roundRect(x, cy + 44, 220, 8, 6);
-      ctx.fill();
-      cy += 72;
-
-      for (const item of items) {
-        const cardX = x;
-        const cardY = cy;
-        const cardW = colW;
-        const cardH = 132;
-
-        ctx.fillStyle = COLORS.card;
-        roundRect(cardX, cardY, cardW, cardH, 18);
-        ctx.fill();
-        ctx.strokeStyle = COLORS.cardBorder;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Time
-        ctx.fillStyle = COLORS.yellow;
-        ctx.font = '900 22px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-        const [start, end] = item.time.split(" - ");
-        ctx.fillText(start || item.time, cardX + 18, cardY + 34);
-        ctx.fillStyle = "rgba(255,255,255,0.45)";
-        ctx.font = '700 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-        if (end) ctx.fillText(end, cardX + 18, cardY + 58);
-
-        // Role badge
-        const role = item.role || "";
-        const badgeText =
-          role === "speaker" ? "登壇" :
-          role === "sponsor" ? "スポンサー" :
-          role === "management" ? "運営" :
-          role === "break" ? "休憩" : "";
-        const badgeBg =
-          role === "speaker" ? COLORS.cyan :
-          role === "sponsor" ? COLORS.yellow :
-          role === "management" ? COLORS.pink :
-          role === "break" ? "#666666" : "rgba(255,255,255,0.16)";
-        const badgeFg = role === "sponsor" || role === "speaker" ? "#000000" : COLORS.text;
-        if (badgeText) {
-          drawPill(cardX + cardW - 18 - 140, cardY + 18, badgeText, badgeBg, badgeFg);
-        }
-
-        // Title
-        const mainTitle = item.title?.trim() ? item.title : (item.speaker || "");
-        ctx.fillStyle = COLORS.text;
-        ctx.font = '900 24px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-        const titleMaxW = cardW - 18 - 18;
-        const titleLines = wrapText(mainTitle, titleMaxW);
-        const t1 = titleLines.slice(0, 2);
-        const titleY = cardY + 92;
-        for (let i = 0; i < t1.length; i++) {
-          ctx.fillText(t1[i], cardX + 18, titleY + i * 28);
-        }
-
-        // Speaker
-        if (item.speaker && item.title?.trim()) {
-          ctx.fillStyle = COLORS.muted;
-          ctx.font = '700 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-          const sp = wrapText(item.speaker, titleMaxW).slice(0, 1)[0] ?? item.speaker;
-          ctx.fillText(sp, cardX + 18, cardY + 72);
-        }
-
-        cy += cardH + 16;
+    const roleToBadge = (role?: ScheduleItem["role"]) => {
+      switch (role) {
+        case "speaker":
+          return { text: "登壇", bg: COLORS.cyan, fg: "#000000" };
+        case "sponsor":
+          return { text: "スポンサー", bg: COLORS.yellow, fg: "#000000" };
+        case "management":
+          return { text: "運営", bg: COLORS.pink, fg: COLORS.text };
+        case "break":
+          return { text: "休憩", bg: "#666666", fg: COLORS.text };
+        default:
+          return null;
       }
-      return cy;
     };
 
-    const leftEnd = drawColumn(leftX, "10:00 - 14:00", COLORS.orange, scheduleData1);
-    const rightEnd = drawColumn(rightX, "14:00 - 18:00", COLORS.purple, scheduleData2);
+    for (let i = 0; i < items.length; i++) {
+      const col = Math.min(cols - 1, Math.floor(i / rowsPerCol));
+      const row = i % rowsPerCol;
+      const x = P + col * (colW + gapX);
+      const y = contentTop + row * (cardH + gapY);
+      const item = items[i];
+
+      // Card
+      ctx.fillStyle = COLORS.card;
+      roundRect(x, y, colW, cardH, 18);
+      ctx.fill();
+      ctx.strokeStyle = COLORS.cardBorder;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Role badge
+      const badge = roleToBadge(item.role);
+      if (badge) {
+        ctx.save();
+        ctx.globalAlpha = 0.95;
+        drawPill(x + colW - 18 - 120, y + 14, badge.text, badge.bg, badge.fg);
+        ctx.restore();
+      }
+
+      // Time
+      ctx.fillStyle = COLORS.yellow;
+      ctx.font = '900 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+      const timeText = item.time.replace(" - ", "–");
+      ctx.fillText(timeText, x + 18, y + 30);
+
+      // Speaker
+      const titleMaxW = colW - 18 - 18;
+      const speakerLine = item.speaker ? wrapText(item.speaker, titleMaxW).slice(0, 1)[0] ?? item.speaker : "";
+      if (speakerLine) {
+        ctx.fillStyle = COLORS.muted;
+        ctx.font = '700 16px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+        ctx.fillText(speakerLine, x + 18, y + 54);
+      }
+
+      // Title (2 lines max)
+      const mainTitle = item.title?.trim() ? item.title : (item.speaker || "");
+      ctx.fillStyle = COLORS.text;
+      ctx.font = '900 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+      const lines = wrapText(mainTitle, titleMaxW).slice(0, speakerLine ? 2 : 2);
+      const baseY = speakerLine ? y + 80 : y + 58;
+      for (let li = 0; li < lines.length; li++) {
+        ctx.fillText(lines[li], x + 18, baseY + li * 22);
+      }
+    }
 
     // Footer
-    const footerY = Math.min(HEIGHT - 90, Math.max(leftEnd, rightEnd) + 36);
+    const footerY = HEIGHT - 62;
     ctx.fillStyle = "rgba(255,255,255,0.18)";
-    ctx.fillRect(P, footerY, WIDTH - P * 2, 2);
+    ctx.fillRect(P, footerY - 20, WIDTH - P * 2, 2);
 
     ctx.fillStyle = COLORS.muted;
-    ctx.font = '700 20px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-    ctx.fillText("Present by GAKUSE.AI / AIで遊ぼうコミュニティ", P, footerY + 36);
-    ctx.fillText("@sora19ai  @taiyo_ai_gakuse", P, footerY + 64);
+    ctx.font = '700 16px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("Present by GAKUSE.AI / AIで遊ぼうコミュニティ  |  @sora19ai  @taiyo_ai_gakuse", P, footerY + 12);
 
     // Download
     const url = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = url;
-    a.download = "japan-ai-bounenkai-2025-timetable.png";
+    a.download = part.filename;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -533,15 +549,24 @@ export default function TimeTable() {
             </p>
           </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <button
               type="button"
-              onClick={downloadShareImage}
+              onClick={() => downloadShareImage({ part: 1 })}
               className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full border-4 border-[var(--color-party-cyan)] shadow-[4px_4px_0_rgba(0,0,0,0.3)] font-black hover:shadow-[6px_6px_0_rgba(0,0,0,0.35)] transition-shadow"
-              aria-label="タイムテーブル画像をダウンロード"
+              aria-label="10:00-14:00の画像をダウンロード"
             >
               <Download className="w-5 h-5" />
-              X向け画像をダウンロード
+              10:00-14:00をDL
+            </button>
+            <button
+              type="button"
+              onClick={() => downloadShareImage({ part: 2 })}
+              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full border-4 border-[var(--color-party-cyan)] shadow-[4px_4px_0_rgba(0,0,0,0.3)] font-black hover:shadow-[6px_6px_0_rgba(0,0,0,0.35)] transition-shadow"
+              aria-label="14:00-18:00の画像をダウンロード"
+            >
+              <Download className="w-5 h-5" />
+              14:00-18:00をDL
             </button>
           </div>
         </div>
