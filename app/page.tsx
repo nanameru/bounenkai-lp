@@ -155,7 +155,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-xl border-4 border-[var(--color-party-cyan)] shadow-[4px_4px_0_rgba(0,0,0,0.3)] transform -rotate-1 hover:rotate-0 transition-transform cursor-default">
             <Clock className="text-[var(--color-party-cyan)] w-6 h-6" />
-            <span className="font-black text-xl">10:00 - 18:00</span>
+            <span className="font-black text-xl">10:00 - 19:00</span>
           </div>
           <div className="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-xl border-4 border-[var(--color-party-pink)] shadow-[4px_4px_0_rgba(0,0,0,0.3)] transform rotate-1 hover:rotate-0 transition-transform cursor-default">
             <MapPin className="text-[var(--color-party-pink)] w-6 h-6" />
@@ -304,7 +304,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-gray-500 font-bold text-sm mb-1">日時</h3>
                   <p className="text-2xl font-black">2025年12月13日 (土)</p>
-                  <p className="text-lg font-bold text-[var(--color-party-orange)]">OPEN 10:00 - CLOSE 18:00</p>
+                  <p className="text-lg font-bold text-[var(--color-party-orange)]">OPEN 10:00 - CLOSE 19:00</p>
                 </div>
               </div>
               

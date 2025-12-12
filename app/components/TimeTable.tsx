@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Clock, User, Mic, Coffee, Users, Star, Download } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 type ScheduleItem = {
   time: string;
@@ -111,7 +112,6 @@ const scheduleData2: ScheduleItem[] = [
     speaker: "Exa Enterprise AI 駒谷 徹",
     role: "speaker",
     description: "社長室室長 / 生成AI事業開発部 部長",
-    image: "/Japan AI 大忘年会 2025 登壇者告知 ハレンさん (4).png",
   },
   {
     time: "15:30 - 15:45",
@@ -120,6 +120,11 @@ const scheduleData2: ScheduleItem[] = [
     role: "speaker",
     description: "AI愛好家 / 生成AI推進者 / AIエージェント開発者",
     image: "/miyacchi.jpg",
+  },
+  {
+    time: "15:45 - 16:00",
+    title: "休憩",
+    role: "break",
   },
   {
     time: "16:00 - 16:15",
@@ -158,13 +163,13 @@ const scheduleData2: ScheduleItem[] = [
     image: "/genspark.jpeg",
   },
   {
-    time: "17:30 - 17:45",
-    title: "懇親会？",
+    time: "17:30 - 18:30",
+    title: "懇親会",
     role: "management",
   },
   {
-    time: "17:45 - 18:00",
-    title: "閉会式？写真撮影",
+    time: "18:30 - 19:00",
+    title: "閉会式・写真撮影",
     role: "management",
   },
 ];
@@ -201,6 +206,8 @@ const RoleBadge = ({ role }: { role: string }) => {
 };
 
 const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <div className="flex gap-4 items-start group">
       {/* Time Column */}
@@ -249,13 +256,14 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
                 </div>
               ) : (
                 <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gray-700 flex items-center justify-center border-2 border-gray-500 overflow-hidden relative">
-                  {item.image ? (
+                  {item.image && !imageError ? (
                     <Image
                       src={item.image}
                       alt={item.speaker || "Speaker"}
                       fill
                       className="object-cover"
                       unoptimized
+                      onError={() => setImageError(true)}
                     />
                   ) : (
                     <User size={24} className="text-gray-300" />
@@ -393,7 +401,7 @@ export default function TimeTable() {
 
     ctx.fillStyle = COLORS.muted;
     ctx.font = '700 24px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
-    ctx.fillText("2025/12/13（土） 10:00 - 18:00  |  川崎タワー 26F", P, y + 112);
+    ctx.fillText("2025/12/13（土） 10:00 - 19:00  |  川崎タワー 26F", P, y + 112);
 
     // Accent chips
     const chipsY = y + 138;
@@ -494,7 +502,7 @@ export default function TimeTable() {
     };
 
     const leftEnd = drawColumn(leftX, "10:00 - 14:00", COLORS.orange, scheduleData1);
-    const rightEnd = drawColumn(rightX, "14:00 - 18:00", COLORS.purple, scheduleData2);
+    const rightEnd = drawColumn(rightX, "14:00 - 19:00", COLORS.purple, scheduleData2);
 
     // Footer
     const footerY = Math.min(HEIGHT - 90, Math.max(leftEnd, rightEnd) + 36);
@@ -573,14 +581,14 @@ export default function TimeTable() {
             </div>
           </div>
 
-          {/* Part 2: 14:00 - 18:00 */}
+          {/* Part 2: 14:00 - 19:00 */}
           <div className="space-y-6">
             <div className="flex items-center gap-4 mb-8">
               <div className="bg-[var(--color-party-purple)] p-3 rounded-full text-white shadow-lg shadow-purple-500/30">
                 <Clock className="w-8 h-8" />
               </div>
               <h3 className="text-3xl font-display font-black text-white border-b-4 border-[var(--color-party-purple)] pb-1 inline-block">
-                14:00 - 18:00
+                14:00 - 19:00
               </h3>
             </div>
 
