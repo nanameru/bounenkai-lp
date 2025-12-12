@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, User, Mic, Coffee, Users, Star } from "lucide-react";
+import { Clock, User, Mic, Coffee, Users, Star, Download } from "lucide-react";
 import Image from "next/image";
 
 type ScheduleItem = {
@@ -290,6 +290,232 @@ const ScheduleCard = ({ item }: { item: ScheduleItem }) => {
 };
 
 export default function TimeTable() {
+  const downloadShareImage = async () => {
+    // Xに載せたときに見栄えしやすい「縦長・2カラム」画像を生成します。
+    const WIDTH = 1600;
+    const HEIGHT = 2000;
+    const SCALE = Math.min(2, Math.max(1, Math.floor(window.devicePixelRatio || 1)));
+
+    const canvas = document.createElement("canvas");
+    canvas.width = WIDTH * SCALE;
+    canvas.height = HEIGHT * SCALE;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.scale(SCALE, SCALE);
+
+    const COLORS = {
+      bg1: "#0f0518",
+      bg2: "#120a1d",
+      cyan: "#00CED1",
+      pink: "#FF1493",
+      purple: "#9400D3",
+      orange: "#FF4500",
+      yellow: "#FFD700",
+      text: "#FFFFFF",
+      muted: "rgba(255,255,255,0.72)",
+      card: "rgba(255,255,255,0.06)",
+      cardBorder: "rgba(255,255,255,0.12)",
+    } as const;
+
+    const roundRect = (x: number, y: number, w: number, h: number, r: number) => {
+      const rr = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + rr, y);
+      ctx.arcTo(x + w, y, x + w, y + h, rr);
+      ctx.arcTo(x + w, y + h, x, y + h, rr);
+      ctx.arcTo(x, y + h, x, y, rr);
+      ctx.arcTo(x, y, x + w, y, rr);
+      ctx.closePath();
+    };
+
+    const wrapText = (text: string, maxWidth: number) => {
+      const lines: string[] = [];
+      let line = "";
+      for (const ch of text.replace(/\s+/g, " ").trim()) {
+        const next = line + ch;
+        if (ctx.measureText(next).width <= maxWidth || line.length === 0) {
+          line = next;
+          continue;
+        }
+        lines.push(line);
+        line = ch;
+      }
+      if (line) lines.push(line);
+      return lines;
+    };
+
+    const drawPill = (x: number, y: number, text: string, bg: string, fg: string) => {
+      ctx.font = '700 20px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+      const padX = 14;
+      const w = Math.ceil(ctx.measureText(text).width) + padX * 2;
+      const h = 34;
+      ctx.fillStyle = bg;
+      roundRect(x, y, w, h, 999);
+      ctx.fill();
+      ctx.fillStyle = fg;
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, x + padX, y + h / 2 + 1);
+      return w;
+    };
+
+    // Background
+    const bg = ctx.createLinearGradient(0, 0, WIDTH, HEIGHT);
+    bg.addColorStop(0, COLORS.bg1);
+    bg.addColorStop(1, COLORS.bg2);
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    // Soft glow
+    const glow = ctx.createRadialGradient(WIDTH * 0.2, HEIGHT * 0.15, 0, WIDTH * 0.2, HEIGHT * 0.15, 520);
+    glow.addColorStop(0, "rgba(0,206,209,0.22)");
+    glow.addColorStop(1, "rgba(0,206,209,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    const glow2 = ctx.createRadialGradient(WIDTH * 0.85, HEIGHT * 0.1, 0, WIDTH * 0.85, HEIGHT * 0.1, 520);
+    glow2.addColorStop(0, "rgba(255,20,147,0.18)");
+    glow2.addColorStop(1, "rgba(255,20,147,0)");
+    ctx.fillStyle = glow2;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    const P = 80;
+    let y = 72;
+
+    // Header
+    ctx.fillStyle = COLORS.yellow;
+    ctx.font = '900 22px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("JAPAN AI", P, y);
+
+    ctx.fillStyle = COLORS.text;
+    ctx.font = '900 64px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("大忘年会 2025", P, y + 74);
+
+    ctx.fillStyle = COLORS.muted;
+    ctx.font = '700 24px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("2025/12/13（土） 10:00 - 18:00  |  川崎タワー 26F", P, y + 112);
+
+    // Accent chips
+    const chipsY = y + 138;
+    const w1 = drawPill(P, chipsY, "タイムテーブル", COLORS.cyan, "#000000");
+    drawPill(P + w1 + 12, chipsY, "保存してXでシェア", COLORS.pink, COLORS.text);
+
+    // Divider
+    y = chipsY + 68;
+    ctx.strokeStyle = "rgba(255,255,255,0.14)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(P, y);
+    ctx.lineTo(WIDTH - P, y);
+    ctx.stroke();
+    y += 36;
+
+    // Columns
+    const gap = 44;
+    const colW = Math.floor((WIDTH - P * 2 - gap) / 2);
+    const leftX = P;
+    const rightX = P + colW + gap;
+    const topY = y;
+
+    const drawColumn = (x: number, title: string, accent: string, items: ScheduleItem[]) => {
+      let cy = topY;
+      // Column title
+      ctx.fillStyle = COLORS.text;
+      ctx.font = '900 36px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+      ctx.fillText(title, x, cy + 34);
+
+      ctx.fillStyle = accent;
+      roundRect(x, cy + 44, 220, 8, 6);
+      ctx.fill();
+      cy += 72;
+
+      for (const item of items) {
+        const cardX = x;
+        const cardY = cy;
+        const cardW = colW;
+        const cardH = 132;
+
+        ctx.fillStyle = COLORS.card;
+        roundRect(cardX, cardY, cardW, cardH, 18);
+        ctx.fill();
+        ctx.strokeStyle = COLORS.cardBorder;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Time
+        ctx.fillStyle = COLORS.yellow;
+        ctx.font = '900 22px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+        const [start, end] = item.time.split(" - ");
+        ctx.fillText(start || item.time, cardX + 18, cardY + 34);
+        ctx.fillStyle = "rgba(255,255,255,0.45)";
+        ctx.font = '700 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+        if (end) ctx.fillText(end, cardX + 18, cardY + 58);
+
+        // Role badge
+        const role = item.role || "";
+        const badgeText =
+          role === "speaker" ? "登壇" :
+          role === "sponsor" ? "スポンサー" :
+          role === "management" ? "運営" :
+          role === "break" ? "休憩" : "";
+        const badgeBg =
+          role === "speaker" ? COLORS.cyan :
+          role === "sponsor" ? COLORS.yellow :
+          role === "management" ? COLORS.pink :
+          role === "break" ? "#666666" : "rgba(255,255,255,0.16)";
+        const badgeFg = role === "sponsor" || role === "speaker" ? "#000000" : COLORS.text;
+        if (badgeText) {
+          drawPill(cardX + cardW - 18 - 140, cardY + 18, badgeText, badgeBg, badgeFg);
+        }
+
+        // Title
+        const mainTitle = item.title?.trim() ? item.title : (item.speaker || "");
+        ctx.fillStyle = COLORS.text;
+        ctx.font = '900 24px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+        const titleMaxW = cardW - 18 - 18;
+        const titleLines = wrapText(mainTitle, titleMaxW);
+        const t1 = titleLines.slice(0, 2);
+        const titleY = cardY + 92;
+        for (let i = 0; i < t1.length; i++) {
+          ctx.fillText(t1[i], cardX + 18, titleY + i * 28);
+        }
+
+        // Speaker
+        if (item.speaker && item.title?.trim()) {
+          ctx.fillStyle = COLORS.muted;
+          ctx.font = '700 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+          const sp = wrapText(item.speaker, titleMaxW).slice(0, 1)[0] ?? item.speaker;
+          ctx.fillText(sp, cardX + 18, cardY + 72);
+        }
+
+        cy += cardH + 16;
+      }
+      return cy;
+    };
+
+    const leftEnd = drawColumn(leftX, "10:00 - 14:00", COLORS.orange, scheduleData1);
+    const rightEnd = drawColumn(rightX, "14:00 - 18:00", COLORS.purple, scheduleData2);
+
+    // Footer
+    const footerY = Math.min(HEIGHT - 90, Math.max(leftEnd, rightEnd) + 36);
+    ctx.fillStyle = "rgba(255,255,255,0.18)";
+    ctx.fillRect(P, footerY, WIDTH - P * 2, 2);
+
+    ctx.fillStyle = COLORS.muted;
+    ctx.font = '700 20px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif';
+    ctx.fillText("Present by GAKUSE.AI / AIで遊ぼうコミュニティ", P, footerY + 36);
+    ctx.fillText("@sora19ai  @taiyo_ai_gakuse", P, footerY + 64);
+
+    // Download
+    const url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "japan-ai-bounenkai-2025-timetable.png";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
   return (
     <section className="py-20 px-4 relative z-10" id="timetable">
       <div className="max-w-7xl mx-auto">
@@ -305,6 +531,18 @@ export default function TimeTable() {
               <span className="text-2xl">🎉</span> 
               <span>9:30 開場・受付開始！</span>
             </p>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={downloadShareImage}
+              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full border-4 border-[var(--color-party-cyan)] shadow-[4px_4px_0_rgba(0,0,0,0.3)] font-black hover:shadow-[6px_6px_0_rgba(0,0,0,0.35)] transition-shadow"
+              aria-label="タイムテーブル画像をダウンロード"
+            >
+              <Download className="w-5 h-5" />
+              X向け画像をダウンロード
+            </button>
           </div>
         </div>
 
