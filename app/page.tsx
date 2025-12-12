@@ -1,29 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Beer, PartyPopper, Music, Gift, ChevronRight, ExternalLink, Users, Mic, Lock, Sparkles } from "lucide-react";
+import { Calendar, MapPin, Clock, Beer, PartyPopper, Gift, ChevronRight, ExternalLink, Users } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import TimeTable from "./components/TimeTable";
+
+const mulberry32 = (seed: number) => {
+  let t = seed >>> 0;
+  return () => {
+    t += 0x6D2B79F5;
+    let x = t;
+    x = Math.imul(x ^ (x >>> 15), x | 1);
+    x ^= x + Math.imul(x ^ (x >>> 7), x | 61);
+    return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+  };
+};
 
 // 紙吹雪コンポーネント
 const Confetti = () => {
-  const [pieces, setPieces] = useState<{ id: number; x: number; y: number; color: string; rotation: number }[]>([]);
-
-  useEffect(() => {
-    const colors = ["#FFD700", "#FF1493", "#00CED1", "#FF4500", "#FFF"];
-    const newPieces = Array.from({ length: 50 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * -100,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      rotation: Math.random() * 360,
-    }));
-    setPieces(newPieces);
-  }, []);
-
-  // クライアントサイドでのみレンダリング（SSR時は何も表示しない）
-  if (pieces.length === 0) return null;
+  const colors = ["#FFD700", "#FF1493", "#00CED1", "#FF4500", "#FFF"];
+  const rng = mulberry32(20251213);
+  const pieces = Array.from({ length: 50 }).map((_, i) => {
+    const x = rng() * 100;
+    const y = rng() * -100;
+    const color = colors[Math.floor(rng() * colors.length)];
+    const rotation = rng() * 360;
+    const duration = rng() * 5 + 5;
+    const delay = rng() * 5;
+    const isRound = rng() > 0.5;
+    return { id: i, x, y, color, rotation, duration, delay, isRound };
+  });
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -33,17 +39,17 @@ const Confetti = () => {
           initial={{ y: -20, x: `${p.x}vw`, rotate: p.rotation, opacity: 1 }}
           animate={{ y: "120vh", rotate: p.rotation + 360 }}
           transition={{ 
-            duration: Math.random() * 5 + 5, 
+            duration: p.duration,
             repeat: Infinity, 
             ease: "linear",
-            delay: Math.random() * 5
+            delay: p.delay
           }}
           style={{
             position: "absolute",
             width: "10px",
             height: "10px",
             backgroundColor: p.color,
-            borderRadius: Math.random() > 0.5 ? "50%" : "0",
+            borderRadius: p.isRound ? "50%" : "0",
           }}
         />
       ))}
@@ -53,14 +59,6 @@ const Confetti = () => {
 
 // フラッグガーランドコンポーネント
 const Flags = () => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
-
   return (
     <div className="absolute top-0 left-0 w-full h-12 z-20 flex justify-between overflow-hidden pointer-events-none">
       {Array.from({ length: 20 }).map((_, i) => (
